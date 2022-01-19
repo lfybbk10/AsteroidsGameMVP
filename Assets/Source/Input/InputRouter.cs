@@ -22,11 +22,13 @@ public class InputRouter
     {
         _playerInput.Enable();
         _playerInput.Player.Move.canceled += OnMoveButtonCanceled;
+        _playerInput.Player.Move.performed += OnMoveButtonPerformed;
     }
 
     public void OnDisable()
     {
         _playerInput.Player.Move.canceled -= OnMoveButtonCanceled;
+        _playerInput.Player.Move.performed -= OnMoveButtonPerformed;
         _playerInput.Disable();
     }
 
@@ -48,6 +50,11 @@ public class InputRouter
 
     private void OnMoveButtonCanceled(InputAction.CallbackContext obj)
     {
-        _model.SetDirection();
+        _model.StopAccalarating();
+    }
+
+    private void OnMoveButtonPerformed(InputAction.CallbackContext obj)
+    {
+        _model.StartAccalerating();
     }
 }
