@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class ShipModel : IUpdatable
 {
-    private Rigidbody2D _rigidbody;
-    private Transform _transform;
-    private Vector2 _forward;
-    private Vector2 _currentForward;
-
     private float _currentSpeed = 0;
     private float _maxSpeed = 5f;
     private float _minSpeed = .01f;
     private float _speedIncreaseStep = 1f;
     private float _speedDecreaseStep = 1.2f;
+    private bool _isAccalerating;
+
+    private Rigidbody2D _rigidbody;
+    private Transform _transform;
+    private Vector2 _forward;
+    private Vector2 _currentForward;
 
     public ShipModel (Rigidbody2D rigidbody)
     {
@@ -24,14 +25,14 @@ public class ShipModel : IUpdatable
 
     public void Update(float deltaTime)
     {
-        _currentForward = Vector2.Lerp(_currentForward, _transform.up, deltaTime);
+        if(_isAccalerating == true)
+            _currentForward = Vector2.Lerp(_currentForward, _transform.up, deltaTime);
     }
     
     public void Accalerate(float deltaTime)
     {
         if(_currentSpeed < _maxSpeed)
             _currentSpeed += _speedIncreaseStep * deltaTime;
-        
         _rigidbody.velocity = _currentForward * _currentSpeed;
     }
 
@@ -46,9 +47,15 @@ public class ShipModel : IUpdatable
         _rigidbody.velocity = _forward * _currentSpeed;
     }
 
-    public void SetDirection()
+    public void StopAccalarating()
     {
+        _isAccalerating = false;
         _forward = _currentForward;
+    }
+
+    public void StartAccalerating()
+    {
+        _isAccalerating = true;
     }
 
 
