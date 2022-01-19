@@ -7,6 +7,7 @@ public class ShipModel : IUpdatable
     private Rigidbody2D _rigidbody;
     private Transform _transform;
     private Vector2 _forward;
+    private Vector2 _currentForward;
 
     private float _currentSpeed = 0;
     private float _maxSpeed = 5f;
@@ -18,11 +19,12 @@ public class ShipModel : IUpdatable
     {
         _rigidbody = rigidbody;
         _transform = rigidbody.GetComponent<Transform>();
+        _currentForward = _transform.up;
     }
 
-    public void Update()
+    public void Update(float deltaTime)
     {
-
+        _currentForward = Vector2.Lerp(_currentForward, _transform.up, deltaTime);
     }
     
     public void Accalerate(float deltaTime)
@@ -30,7 +32,7 @@ public class ShipModel : IUpdatable
         if(_currentSpeed < _maxSpeed)
             _currentSpeed += _speedIncreaseStep * deltaTime;
         
-        _rigidbody.velocity = _transform.up * _currentSpeed;
+        _rigidbody.velocity = _currentForward * _currentSpeed;
     }
 
     public void SlowDown(float deltaTime)
@@ -46,7 +48,7 @@ public class ShipModel : IUpdatable
 
     public void SetDirection()
     {
-        _forward = _transform.up;
+        _forward = _currentForward;
     }
 
 

@@ -11,9 +11,9 @@ public class ShipPresenter : Presenter
         _model = ship;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (_model is IUpdatable)
-            _model.Update();
+            _model.Update(Time.deltaTime);
     }
 }
