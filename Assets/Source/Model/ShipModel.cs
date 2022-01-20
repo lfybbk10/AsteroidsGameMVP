@@ -1,16 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ShipModel : IUpdatable
 {
-    private float _currentSpeed = 0;
-    private float _maxSpeed = 5f;
-    private float _minSpeed = .01f;
-    private float _speedIncreaseStep = 1f;
-    private float _speedDecreaseStep = 1.2f;
     private bool _isAccalerating;
-
+    private ShipRotator _shipRotator;
+    private ShipMover _shipMover;
     private Rigidbody2D _rigidbody;
     private Transform _transform;
     private Vector2 _forward;
@@ -18,6 +15,8 @@ public class ShipModel : IUpdatable
 
     public ShipModel (Rigidbody2D rigidbody)
     {
+        _shipRotator = new ShipRotator();
+        _shipMover = new ShipMover();
         _rigidbody = rigidbody;
         _transform = rigidbody.GetComponent<Transform>();
         _currentForward = _transform.up;
@@ -31,20 +30,12 @@ public class ShipModel : IUpdatable
     
     public void Accalerate(float deltaTime)
     {
-        if(_currentSpeed < _maxSpeed)
-            _currentSpeed += _speedIncreaseStep * deltaTime;
-        _rigidbody.velocity = _currentForward * _currentSpeed;
+        _shipMover.Accalerate(deltaTime, _rigidbody, _currentForward);
     }
 
     public void SlowDown(float deltaTime)
     {
-        if(_currentSpeed <= _minSpeed)
-        {
-            _currentSpeed = 0;
-            return;
-        }
-        _currentSpeed -= _speedDecreaseStep * deltaTime;
-        _rigidbody.velocity = _forward * _currentSpeed;
+        _shipMover.SlowDown(deltaTime, _rigidbody, _forward);
     }
 
     public void StopAccalarating()
@@ -61,10 +52,46 @@ public class ShipModel : IUpdatable
 
     public void Rotate(Vector2 targetPosition)
     {
-        float dX = targetPosition.x - _rigidbody.position.x;
-        float dY = targetPosition.y - _rigidbody.position.y;
-        float targetRotation = Mathf.Atan2(dY, dX) * (180 / Mathf.PI);
-        _transform.rotation = Quaternion.Euler(0, 0, targetRotation - 90);
+        _transform.rotation = _shipRotator.Rotate(targetPosition, _rigidbody.position);
     }
 
+}
+
+[Serializable]
+public class ShipMover
+{
+    [SerializeField] private float _currentSpeed = 0;
+    [SerializeField] private float _maxSpeed = 5f;
+    [SerializeField] private float _minSpeed = .01f;
+    [SerializeField] private float _speedIncreaseStep = 1f;
+    [SerializeField] private float _speedDecreaseStep = 1.2f;
+
+    public void Accalerate(float deltaTime, Rigidbody2D rigidbody, Vector2 currentForward)
+    {
+        if (_currentSpeed < _maxSpeed)
+            _currentSpeed += _speedIncreaseStep * deltaTime;
+        rigidbody.velocity = currentForward * _currentSpeed;
+    }
+
+    public void SlowDown(float deltaTime, Rigidbody2D rigidbody, Vector2 forward)
+    {
+        if (_currentSpeed <= _minSpeed)
+        {
+            _currentSpeed = 0;
+            return;
+        }
+        _currentSpeed -= _speedDecreaseStep * deltaTime;
+        rigidbody.velocity = forward * _currentSpeed;
+    }
+}
+
+public class ShipRotator
+{
+    public Quaternion Rotate(Vector2 targetPosition, Vector3 currentPosition)
+    {
+        float dX = targetPosition.x - currentPosition.x;
+        float dY = targetPosition.y - currentPosition.y;
+        float targetRotation = Mathf.Atan2(dY, dX) * (180 / Mathf.PI);
+        return Quaternion.Euler(0, 0, targetRotation - 90);
+    }
 }
