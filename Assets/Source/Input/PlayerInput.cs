@@ -46,7 +46,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""FirstShoot"",
+                    ""name"": ""DefoultShoot"",
                     ""type"": ""Button"",
                     ""id"": ""ab8d73be-17cd-4b84-b64a-ee92627d22f5"",
                     ""expectedControlType"": ""Button"",
@@ -55,7 +55,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SecondShoot"",
+                    ""name"": ""LazerShoot"",
                     ""type"": ""Button"",
                     ""id"": ""33fe2a01-2312-4a35-8dd3-529163d375a2"",
                     ""expectedControlType"": ""Button"",
@@ -94,7 +94,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""FirstShoot"",
+                    ""action"": ""DefoultShoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -105,7 +105,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SecondShoot"",
+                    ""action"": ""LazerShoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -118,8 +118,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_MousePosition = m_Player.FindAction("MousePosition", throwIfNotFound: true);
-        m_Player_FirstShoot = m_Player.FindAction("FirstShoot", throwIfNotFound: true);
-        m_Player_SecondShoot = m_Player.FindAction("SecondShoot", throwIfNotFound: true);
+        m_Player_DefoultShoot = m_Player.FindAction("DefoultShoot", throwIfNotFound: true);
+        m_Player_LazerShoot = m_Player.FindAction("LazerShoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -181,16 +181,16 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_MousePosition;
-    private readonly InputAction m_Player_FirstShoot;
-    private readonly InputAction m_Player_SecondShoot;
+    private readonly InputAction m_Player_DefoultShoot;
+    private readonly InputAction m_Player_LazerShoot;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
         public PlayerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @MousePosition => m_Wrapper.m_Player_MousePosition;
-        public InputAction @FirstShoot => m_Wrapper.m_Player_FirstShoot;
-        public InputAction @SecondShoot => m_Wrapper.m_Player_SecondShoot;
+        public InputAction @DefoultShoot => m_Wrapper.m_Player_DefoultShoot;
+        public InputAction @LazerShoot => m_Wrapper.m_Player_LazerShoot;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -206,12 +206,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @MousePosition.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
                 @MousePosition.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
                 @MousePosition.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
-                @FirstShoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFirstShoot;
-                @FirstShoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFirstShoot;
-                @FirstShoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFirstShoot;
-                @SecondShoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondShoot;
-                @SecondShoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondShoot;
-                @SecondShoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondShoot;
+                @DefoultShoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDefoultShoot;
+                @DefoultShoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDefoultShoot;
+                @DefoultShoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDefoultShoot;
+                @LazerShoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLazerShoot;
+                @LazerShoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLazerShoot;
+                @LazerShoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLazerShoot;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -222,12 +222,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @MousePosition.started += instance.OnMousePosition;
                 @MousePosition.performed += instance.OnMousePosition;
                 @MousePosition.canceled += instance.OnMousePosition;
-                @FirstShoot.started += instance.OnFirstShoot;
-                @FirstShoot.performed += instance.OnFirstShoot;
-                @FirstShoot.canceled += instance.OnFirstShoot;
-                @SecondShoot.started += instance.OnSecondShoot;
-                @SecondShoot.performed += instance.OnSecondShoot;
-                @SecondShoot.canceled += instance.OnSecondShoot;
+                @DefoultShoot.started += instance.OnDefoultShoot;
+                @DefoultShoot.performed += instance.OnDefoultShoot;
+                @DefoultShoot.canceled += instance.OnDefoultShoot;
+                @LazerShoot.started += instance.OnLazerShoot;
+                @LazerShoot.performed += instance.OnLazerShoot;
+                @LazerShoot.canceled += instance.OnLazerShoot;
             }
         }
     }
@@ -236,7 +236,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
-        void OnFirstShoot(InputAction.CallbackContext context);
-        void OnSecondShoot(InputAction.CallbackContext context);
+        void OnDefoultShoot(InputAction.CallbackContext context);
+        void OnLazerShoot(InputAction.CallbackContext context);
     }
 }

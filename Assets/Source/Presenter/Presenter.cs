@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Presenter : MonoBehaviour
 {
-    public void Init()
+    public virtual void Init()
     {
 
     }

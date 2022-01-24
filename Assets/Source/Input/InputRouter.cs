@@ -9,7 +9,7 @@ public class InputRouter
     private Vector2 _mousePosition;
     private Camera _camera;
 
-    public event UnityAction OnReleaseMoveButton;
+    public event UnityAction OnDefoultGunShoot;
 
     public InputRouter(ShipModel model)
     {
@@ -23,12 +23,14 @@ public class InputRouter
         _playerInput.Enable();
         _playerInput.Player.Move.canceled += OnMoveButtonCanceled;
         _playerInput.Player.Move.performed += OnMoveButtonPerformed;
+        _playerInput.Player.DefoultShoot.performed += DefoultGunShoot;
     }
 
     public void OnDisable()
     {
         _playerInput.Player.Move.canceled -= OnMoveButtonCanceled;
         _playerInput.Player.Move.performed -= OnMoveButtonPerformed;
+        _playerInput.Player.DefoultShoot.performed -= DefoultGunShoot;
         _playerInput.Disable();
     }
 
@@ -56,5 +58,10 @@ public class InputRouter
     private void OnMoveButtonPerformed(InputAction.CallbackContext obj)
     {
         _model.StartAccalerating();
+    }
+
+    private void DefoultGunShoot(InputAction.CallbackContext obj)
+    {
+        OnDefoultGunShoot?.Invoke();
     }
 }
