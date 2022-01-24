@@ -5,6 +5,7 @@ using UnityEngine;
 public class Root : MonoBehaviour
 {
     [SerializeField] private ShipPresenter _ship;
+    [SerializeField] private GunPresenter _gun;
 
     private InputRouter _input;
 
@@ -13,6 +14,7 @@ public class Root : MonoBehaviour
         ShipModel ship = new ShipModel(_ship.GetComponent<Rigidbody2D>());
         _input = new InputRouter(ship);
         _ship.Init(ship);
+        _gun.Init(_input);
     }
 
     private void OnEnable()

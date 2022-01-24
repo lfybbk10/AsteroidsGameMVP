@@ -11,7 +11,8 @@
                     "id": "79b90042-efec-4450-aa30-ce7def692b97",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "MousePosition",
@@ -19,23 +20,26 @@
                     "id": "5c002936-a8fc-47bc-a82d-d39fdbb3bf34",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
-                    "name": "FirstShoot",
+                    "name": "DefoultShoot",
                     "type": "Button",
                     "id": "ab8d73be-17cd-4b84-b64a-ee92627d22f5",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
-                    "name": "SecondShoot",
+                    "name": "LazerShoot",
                     "type": "Button",
                     "id": "33fe2a01-2312-4a35-8dd3-529163d375a2",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -68,7 +72,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "FirstShoot",
+                    "action": "DefoultShoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -79,7 +83,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SecondShoot",
+                    "action": "LazerShoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
