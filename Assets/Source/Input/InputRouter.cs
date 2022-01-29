@@ -10,6 +10,7 @@ public class InputRouter
     private Camera _camera;
 
     public event UnityAction OnDefoultGunShoot;
+    public event UnityAction OnLazertGunShoot;
 
     public InputRouter(ShipModel model)
     {
@@ -24,6 +25,7 @@ public class InputRouter
         _playerInput.Player.Move.canceled += OnMoveButtonCanceled;
         _playerInput.Player.Move.performed += OnMoveButtonPerformed;
         _playerInput.Player.DefoultShoot.performed += DefoultGunShoot;
+        _playerInput.Player.LazerShoot.performed += LazerGunShoot;
     }
 
     public void OnDisable()
@@ -31,6 +33,7 @@ public class InputRouter
         _playerInput.Player.Move.canceled -= OnMoveButtonCanceled;
         _playerInput.Player.Move.performed -= OnMoveButtonPerformed;
         _playerInput.Player.DefoultShoot.performed -= DefoultGunShoot;
+        _playerInput.Player.LazerShoot.performed -= LazerGunShoot;
         _playerInput.Disable();
     }
 
@@ -63,5 +66,10 @@ public class InputRouter
     private void DefoultGunShoot(InputAction.CallbackContext obj)
     {
         OnDefoultGunShoot?.Invoke();
+    }
+
+    private void LazerGunShoot(InputAction.CallbackContext obj)
+    {
+        OnLazertGunShoot?.Invoke();
     }
 }

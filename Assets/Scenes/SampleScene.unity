@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defoultGunBulletTemplate: {fileID: 8376260821566056900, guid: 74a113b132d7276469a5c55ad337444e, type: 3}
+  _lazerBulletTemplate: {fileID: -8814347069215747039, guid: cc552bc3c673936498ee0adb6af1f935, type: 3}
 --- !u!4 &380407027
 Transform:
   m_ObjectHideFlags: 0
@@ -179,7 +180,7 @@ GameObject:
   m_Layer: 0
   m_Name: ShootPoint
   m_TagString: Untagged
-  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
