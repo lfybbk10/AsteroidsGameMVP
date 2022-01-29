@@ -5,22 +5,49 @@ using UnityEngine;
 public class GunPresenter : Presenter
 {
     [SerializeField] private Transform _shootpoint;
-    [SerializeField] private DefoultBulletModel _bulletPrefab;
     [SerializeField] private PresentersFactory _factory;
 
-    private DefoultGun _defoultGunModel;
+
+    private DefoultGunModel _defoultGunModel;
+    private LazerGunModel _lazerGunModel;
+    private LazerGunRollback _lazerGunRollback;
+
     private InputRouter _inputRouter;
 
     public void Init(InputRouter input)
     {
-        _defoultGunModel = new DefoultGun(_shootpoint, _bulletPrefab, _factory);
+        _defoultGunModel = new DefoultGunModel(_shootpoint, _factory);
+        _lazerGunModel = new LazerGunModel(_shootpoint, _factory);
+        _lazerGunRollback = new LazerGunRollback();
+
         _inputRouter = input;
+
         _inputRouter.OnDefoultGunShoot += DefoultShoot;
+        _inputRouter.OnLazertGunShoot += LazerShoot;
+    }
+    private void OnDisable()
+    {
+        _inputRouter.OnDefoultGunShoot -= DefoultShoot;
+        _inputRouter.OnLazertGunShoot -= LazerShoot;
+    }
+
+    private void Update()
+    {
+        _lazerGunRollback.Update(Time.deltaTime);
     }
 
     private void DefoultShoot()
     {
         _defoultGunModel.Shoot();
+    }
+
+    private void LazerShoot()
+    {
+        if (_lazerGunRollback.CanShoot == false)
+            return;
+
+        _lazerGunModel.Shoot();
+        _lazerGunRollback.SetShoted();
     }
 
 }

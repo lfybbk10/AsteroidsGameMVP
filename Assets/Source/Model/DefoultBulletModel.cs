@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DefoultBulletModel
+public class DefoultBulletModel : BulletModel
 {
     private float _speed = 1000f;
 
