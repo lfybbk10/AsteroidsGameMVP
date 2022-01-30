@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GunPresenter : Presenter
 {
@@ -14,6 +15,9 @@ public class GunPresenter : Presenter
 
     private InputRouter _inputRouter;
 
+    public event UnityAction OnShoot;
+    public event UnityAction OnStopRollingBack;
+
     public void Init(InputRouter input)
     {
         _defoultGunModel = new DefoultGunModel(_shootpoint, _factory);
@@ -24,11 +28,13 @@ public class GunPresenter : Presenter
 
         _inputRouter.OnDefoultGunShoot += DefoultShoot;
         _inputRouter.OnLazertGunShoot += LazerShoot;
+        _lazerGunRollback.OnStopRollingBack += StopRollbackCounting;
     }
     private void OnDisable()
     {
         _inputRouter.OnDefoultGunShoot -= DefoultShoot;
         _inputRouter.OnLazertGunShoot -= LazerShoot;
+        _lazerGunRollback.OnStopRollingBack -= StopRollbackCounting;
     }
 
     private void Update()
@@ -48,6 +54,18 @@ public class GunPresenter : Presenter
 
         _lazerGunModel.Shoot();
         _lazerGunRollback.SetShoted();
+        OnShoot?.Invoke();
     }
+
+    private void StopRollbackCounting()
+    {
+        OnStopRollingBack?.Invoke();
+    }
+
+    public float GetRollBackTime()
+    {
+        return _lazerGunRollback.ElapsedTime;
+    }
+
 
 }
