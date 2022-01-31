@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LazerBulletPresenter : Presenter
+public class LazerBulletPresenter : BulletPresenter, IBullet
 {
     public void Init(Transform shootPoint)
     {
