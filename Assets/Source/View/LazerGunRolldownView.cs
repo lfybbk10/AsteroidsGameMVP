@@ -38,6 +38,6 @@ public class LazerGunRolldownView : MonoBehaviour
     private void StopCount()
     {
         _isRollingback = false;
-        _rollbackText.text = "0";
+        _rollbackText.text = "Ready";
     }
 }
