@@ -13,7 +13,7 @@ public class AsteroidModel
     {
         _direction = direction;
         _rigidbody = rigidbody;
-        _rigidbody.AddForce(_direction * _speed * 100, ForceMode2D.Impulse);
+        _rigidbody.AddForce(_direction * _speed, ForceMode2D.Impulse);
     }
 
 }

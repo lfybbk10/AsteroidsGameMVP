@@ -29,27 +29,35 @@ public class PresentersFactory : MonoBehaviour
 
     }
 
-    public void CreateAsteroidPart(AsteroidPresenter asteroidPresenter)
+    public void CreateAsteroidPart(AsteroidPresenter asteroidPresenter, Vector2 position, Vector2 direction)
     {
         if(asteroidPresenter is BigAsteroidPresenter)
         {
             for (int i = 0; i < _partsCount; i++)
             {
                 MiddleAsteroidPresenter midAsteroid = CreatePresenter(_middleAsteroidTemplte) as MiddleAsteroidPresenter;
+                float randomOffset = Random.Range(-.5f, .5f);
+                Vector2 newPosition = new Vector2(position.x + randomOffset, position.y + randomOffset);
+                midAsteroid.Init(this, newPosition, direction);
+
             }
         }
         else if(asteroidPresenter is MiddleAsteroidPresenter)
         {
             for (int i = 0; i < _partsCount; i++)
             {
-                SmallAsteroidPresenter midAsteroid = CreatePresenter(_smallAsteroidTemplte) as SmallAsteroidPresenter;
+                SmallAsteroidPresenter smallAsteroid = CreatePresenter(_smallAsteroidTemplte) as SmallAsteroidPresenter;
+                float randomOffset = Random.Range(-.5f, .5f);
+                Vector2 newPosition = new Vector2(position.x + randomOffset, position.y + randomOffset);
+                smallAsteroid.Init(this, newPosition, direction);
             }
         }
     }
 
-    public void CreateAsteroid()
+    public void CreateAsteroid(Vector2 position, Vector2 direction)
     {
         BigAsteroidPresenter bigAsteroidPresenter = CreatePresenter(_bigAsteroidTemplte) as BigAsteroidPresenter;
+        bigAsteroidPresenter.Init(this, position, direction);
     }
 
     private Presenter CreatePresenter(Presenter template)
