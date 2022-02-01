@@ -10,7 +10,7 @@ public class EnemyPresenter : Presenter
             Die();
     }
 
-    private void Die()
+    protected virtual void Die()
     {
         Destroy(gameObject);
     }
