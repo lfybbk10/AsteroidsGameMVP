@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4186151569092413546}
   - component: {fileID: 4186151569092413461}
   - component: {fileID: 417189304205206837}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MidAsteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,3 +134,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc304655459a3f4ba57a5cb2afa941a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _reward: 10

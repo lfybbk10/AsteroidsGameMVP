@@ -11,6 +11,10 @@ public class PresentersFactory : MonoBehaviour
     [SerializeField] private AsteroidPresenter _middleAsteroidTemplte;
     [SerializeField] private AsteroidPresenter _smallAsteroidTemplte;
 
+    [SerializeField] private NloPresenter _nloTemplate;
+
+    [SerializeField] private Root _root;
+
     private int _partsCount = 2;
 
     public void CreateBullet(Transform shootPoint, GunModel gun)
@@ -37,8 +41,8 @@ public class PresentersFactory : MonoBehaviour
             {
                 MiddleAsteroidPresenter midAsteroid = CreatePresenter(_middleAsteroidTemplte) as MiddleAsteroidPresenter;
                 float randomOffset = Random.Range(-.5f, .5f);
-                Vector2 newPosition = new Vector2(position.x + randomOffset, position.y + randomOffset);
-                midAsteroid.Init(this, newPosition, direction);
+                Vector2 newDirection = new Vector2(direction.x + randomOffset, direction.y + randomOffset).normalized;
+                midAsteroid.Init(this, position, newDirection);
 
             }
         }
@@ -58,6 +62,12 @@ public class PresentersFactory : MonoBehaviour
     {
         BigAsteroidPresenter bigAsteroidPresenter = CreatePresenter(_bigAsteroidTemplte) as BigAsteroidPresenter;
         bigAsteroidPresenter.Init(this, position, direction);
+    }
+
+    public void CreateNlo(Vector2 position)
+    {
+        NloPresenter nloPresenter = CreatePresenter(_nloTemplate) as NloPresenter;
+        nloPresenter.Init(_root.ShipPresenter.transform, position);
     }
 
     private Presenter CreatePresenter(Presenter template)
