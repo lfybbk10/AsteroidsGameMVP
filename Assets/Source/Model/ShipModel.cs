@@ -61,9 +61,9 @@ public class ShipModel : IUpdatable
 public class ShipMover
 {
     [SerializeField] private float _currentSpeed = 0;
-    [SerializeField] private float _maxSpeed = 5f;
+    [SerializeField] private float _maxSpeed = 6f;
     [SerializeField] private float _minSpeed = .01f;
-    [SerializeField] private float _speedIncreaseStep = 1f;
+    [SerializeField] private float _speedIncreaseStep = 1.5f;
     [SerializeField] private float _speedDecreaseStep = 1.2f;
 
     public void Accalerate(float deltaTime, Rigidbody2D rigidbody, Vector2 currentForward)

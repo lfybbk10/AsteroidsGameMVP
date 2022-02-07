@@ -9,6 +9,8 @@ public class Root : MonoBehaviour
 
     private InputRouter _input;
 
+    public ShipPresenter ShipPresenter => _ship;
+
     private void Awake()
     {
         ShipModel ship = new ShipModel(_ship.GetComponent<Rigidbody2D>());

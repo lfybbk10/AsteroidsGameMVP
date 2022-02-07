@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7744331393022120978}
   - component: {fileID: 7744331393022120977}
   - component: {fileID: 3003887425725838005}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BigAsteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,3 +134,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59ffead0b0764e341ae3ec0626f32230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _reward: 5

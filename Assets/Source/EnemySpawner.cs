@@ -30,9 +30,11 @@ public class EnemySpawner : MonoBehaviour
     private void Tick()
     {
         float chance = Random.Range(0f, 100f);
-        if(chance < 20)
+        if (chance < 20)
         {
-            Debug.Log("nlo");
+            Vector2 position = GetPositionOutSideCamera();
+            Vector2 direction = GetDirectionTroughScreen(position);
+            _factory.CreateNlo(position);
         }
         else
         {
