@@ -43,7 +43,7 @@ public class PresentersFactory : MonoBehaviour
                 float randomOffset = Random.Range(-.5f, .5f);
                 Vector2 newDirection = new Vector2(direction.x + randomOffset, direction.y + randomOffset).normalized;
                 midAsteroid.Init(this, position, newDirection);
-
+                midAsteroid.Init(_root.ScorePresenter);
             }
         }
         else if(asteroidPresenter is MiddleAsteroidPresenter)
@@ -54,6 +54,7 @@ public class PresentersFactory : MonoBehaviour
                 float randomOffset = Random.Range(-.5f, .5f);
                 Vector2 newPosition = new Vector2(position.x + randomOffset, position.y + randomOffset);
                 smallAsteroid.Init(this, newPosition, direction);
+                smallAsteroid.Init(_root.ScorePresenter);
             }
         }
     }
@@ -62,12 +63,14 @@ public class PresentersFactory : MonoBehaviour
     {
         BigAsteroidPresenter bigAsteroidPresenter = CreatePresenter(_bigAsteroidTemplte) as BigAsteroidPresenter;
         bigAsteroidPresenter.Init(this, position, direction);
+        bigAsteroidPresenter.Init(_root.ScorePresenter);
     }
 
     public void CreateNlo(Vector2 position)
     {
         NloPresenter nloPresenter = CreatePresenter(_nloTemplate) as NloPresenter;
         nloPresenter.Init(_root.ShipPresenter.transform, position);
+        nloPresenter.Init(_root.ScorePresenter);
     }
 
     private Presenter CreatePresenter(Presenter template)

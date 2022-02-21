@@ -5,6 +5,12 @@ using UnityEngine;
 public class EnemyPresenter : Presenter
 {
     [SerializeField] private int _reward;
+    private PlayerScorePresenter _scorePresenter;
+
+    public void Init(PlayerScorePresenter playerScore)
+    {
+        _scorePresenter = playerScore;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,6 +20,7 @@ public class EnemyPresenter : Presenter
 
     protected virtual void Die()
     {
+        _scorePresenter.OnEnemyDestroy(_reward);
         Destroy(gameObject);
     }
 }
